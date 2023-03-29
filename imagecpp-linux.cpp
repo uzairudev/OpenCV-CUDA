@@ -22,7 +22,6 @@ int main( int argc, char** argv )
   int width= d_img.cols;
   int height = d_img.rows;
 
-
   cv::imshow("Original Image", h_img);
   
   auto begin = chrono::high_resolution_clock::now();
@@ -48,34 +47,4 @@ int main( int argc, char** argv )
   return 0;
 }
 
-
-
-
-//  Histogoram.
-cv::Mat h_hist;
-int histSize = 256;  // Number of bins
-float range[] = {0, 256};  // Pixel values range
-const float* histRange = {range};
-bool uniform = true;
-bool accumulate = false;
-
-// Calculate histogram
-cv::calcHist(&h_result, 1, 0, cv::Mat(), h_hist, 1, &histSize, &histRange, uniform, accumulate);
-
-// Display histogram
-int hist_w = 512;
-int hist_h = 400;
-int bin_w = cvRound((double)hist_w/histSize);
-cv::Mat histImage(hist_h, hist_w, CV_8UC1, cv::Scalar(0));
-normalize(h_hist, h_hist, 0, histImage.rows, cv::NORM_MINMAX, -1, cv::Mat());
-
-for (int i = 1; i < histSize; i++)
-{
-    line(histImage, cv::Point(bin_w*(i-1), hist_h - cvRound(h_hist.at<float>(i-1))),
-         cv::Point(bin_w*(i), hist_h - cvRound(h_hist.at<float>(i))),
-         cv::Scalar(255), 2, 8, 0);
-}
-
-cv::namedWindow("Histogram", cv::WINDOW_OPENGL | cv::WINDOW_AUTOSIZE);
-cv::imshow("Histogram", histImage);
-
+// New file added
